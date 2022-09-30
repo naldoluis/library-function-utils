@@ -8,8 +8,8 @@ import MyToast from '../MyToast'
 
 class Book extends Component {
   constructor(props) {
-    super(props);
-    this.state = this.initialState;
+    super(props)
+    this.state = this.initialState
     this.state = {
       genres: [],
       languages: [],

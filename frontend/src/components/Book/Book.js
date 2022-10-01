@@ -217,12 +217,7 @@ class Book extends Component {
                     />
                     <InputGroup.Append>
                       {this.state.coverPhotoURL !== "" && (
-                        <Image
-                          src={this.state.coverPhotoURL}
-                          roundedRight
-                          width="40"
-                          height="38"
-                        />
+                        <Image src={this.state.coverPhotoURL} roundedRight width="40" height="38"/>
                       )}
                     </InputGroup.Append>
                   </InputGroup>

@@ -150,7 +150,7 @@ class UserList extends Component {
                         disabled={currentPage === totalPages ? true : false}
                         onClick={this.nextPage}
                       >
-                        <FontAwesomeIcon icon={faStepForward} /> Next
+                        <FontAwesomeIcon icon={faStepForward}/> Next
                       </Button>
                       <Button
                         type="button"

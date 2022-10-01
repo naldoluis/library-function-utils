@@ -1,5 +1,6 @@
 import * as BT from './bookTypes'
 import axios from 'axios'
+import { BASE_URL } from '../../utils/requests'
 
 export const saveBook = (book) => {
   return (dispatch) => {
@@ -7,7 +8,7 @@ export const saveBook = (book) => {
       type: BT.SAVE_BOOK_REQUEST
     })
 
-    axios.post("http://localhost:8081/rest/books", book)
+    axios.post(`${BASE_URL}/rest/books`, book)
       .then((response) => {
         dispatch(bookSuccess(response.data))
       })
@@ -21,7 +22,7 @@ export const fetchBook = (bookId) => {
     dispatch({
       type: BT.FETCH_BOOK_REQUEST
     })
-    axios("http://localhost:8081/rest/books/" + bookId)
+    axios(`${BASE_URL}/rest/books` + bookId)
       .then((response) => {
         dispatch(bookSuccess(response.data))
       })
@@ -35,7 +36,7 @@ export const updateBook = (book) => {
     dispatch({
       type: BT.UPDATE_BOOK_REQUEST
     })
-    axios.put("http://localhost:8081/rest/books", book)
+    axios.put(`${BASE_URL}/rest/books`, book)
       .then((response) => {
         dispatch(bookSuccess(response.data))
       })
@@ -49,7 +50,7 @@ export const deleteBook = (bookId) => {
     dispatch({
       type: BT.DELETE_BOOK_REQUEST
     })
-    axios.delete("http://localhost:8081/rest/books/" + bookId)
+    axios.delete(`${BASE_URL}/rest/books` + bookId)
       .then((response) => {
         dispatch(bookSuccess(response.data))
       })
@@ -77,7 +78,7 @@ export const fetchLanguages = () => {
     dispatch({
       type: BT.FETCH_LANGUAGES_REQUEST
     })
-    axios("http://localhost:8081/rest/books/languages")
+    axios(`${BASE_URL}/rest/books/languages`)
       .then((response) => {
         dispatch({
           type: BT.LANGUAGES_SUCCESS,
@@ -97,7 +98,7 @@ export const fetchGenres = () => {
     dispatch({
       type: BT.FETCH_GENRES_REQUEST
     })
-    axios("http://localhost:8081/rest/books/genres")
+    axios(`${BASE_URL}/rest/books/genres`)
       .then((response) => {
         dispatch({
           type: BT.GENRES_SUCCESS,

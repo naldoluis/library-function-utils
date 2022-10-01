@@ -1,7 +1,8 @@
 import * as UT from './userTypes'
 import axios from 'axios'
+import { BASE_URL } from '../../utils/requests'
 
-const REGISTER_URL = "http://localhost:8081/rest/user/register"
+const REGISTER_URL = `${BASE_URL}/rest/user/register`
 
 export const fetchUsers = () => {
   return (dispatch) => {

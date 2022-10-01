@@ -1,5 +1,5 @@
 # GET
-	http://localhost:8081/rest/user/authenticate
+	http://localhost:8080/rest/user/authenticate
 
 # Requests
 
@@ -14,19 +14,19 @@
 	}
 
 # GET
-	http://localhost:8081/rest/books
+	http://localhost:8080/rest/books
 
 # GET By ID
-	http://localhost:8081/rest/books/1
+	http://localhost:8080/rest/books/1
 
 # POST
-	http://localhost:8081/rest/books
+	http://localhost:8080/rest/books
 
 # PUT
-	http://localhost:8081/rest/books
+	http://localhost:8080/rest/books
 
 # DELETE
-	http://localhost:8081/rest/books/1
+	http://localhost:8080/rest/books/1
 
 # Requests
 

@@ -21,7 +21,7 @@ const Login = (props) => {
     setUser({ ...user, [name]: value })
   }
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const validateUser = () => {
     dispatch(authenticateUser(user.email, user.password))
@@ -38,8 +38,8 @@ const Login = (props) => {
   }
 
   const resetLoginForm = () => {
-    setUser(initialState);
-  };
+    setUser(initialState)
+  }
 
   return (
     <Row className="justify-content-md-center">

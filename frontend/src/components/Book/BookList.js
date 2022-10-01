@@ -8,6 +8,7 @@ import { faList, faEdit, faTrash, faStepBackward, faFastBackward, faStepForward,
 import { Link } from 'react-router-dom'
 import MyToast from '../MyToast'
 import axios from 'axios'
+import { BASE_URL } from '../../utils/requests'
 
 class BookList extends Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class BookList extends Component {
 
   findAllBooks(currentPage) {
     currentPage -= 1
-    axios("http://localhost:8081/rest/books?pageNumber=" +
+    axios(`${BASE_URL}/rest/books?pageNumber=` +
           currentPage +
           "&pageSize=" +
           this.state.booksPerPage +
@@ -140,7 +141,7 @@ class BookList extends Component {
 
   searchData = (currentPage) => {
     currentPage -= 1
-    axios("http://localhost:8081/rest/books/search/" +
+    axios(`${BASE_URL}/rest/books/search` +
           this.state.search +
           "?page=" +
           currentPage +

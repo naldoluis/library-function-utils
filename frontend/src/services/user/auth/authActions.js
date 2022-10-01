@@ -1,7 +1,8 @@
 import * as AT from './authTypes'
 import axios from 'axios'
+import { BASE_URL } from '../../../utils/requests'
 
-const AUTH_URL = "http://localhost:8081/rest/user/authenticate"
+const AUTH_URL = `${BASE_URL}/rest/user/authenticate`
 
 export const authenticateUser = (email, password) => async (dispatch) => {
   dispatch(loginRequest())

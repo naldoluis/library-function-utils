@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { deleteBook } from '../../services/index'
-import './../../assets/css/Style.css'
 import { Card, Table, Image, ButtonGroup, Button, InputGroup, FormControl } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList, faEdit, faTrash, faStepBackward, faFastBackward, faStepForward, faFastForward, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -9,6 +8,7 @@ import { Link } from 'react-router-dom'
 import MyToast from '../MyToast'
 import axios from 'axios'
 import { BASE_URL } from '../../utils/requests'
+import './../../assets/css/Style.css'
 
 class BookList extends Component {
   constructor(props) {

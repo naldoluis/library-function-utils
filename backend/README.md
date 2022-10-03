@@ -1,6 +1,6 @@
 # GET
 	http://localhost:8080/rest/user/authenticate
-	C:\libraryy\frontend
+	cd C:\libraryy\frontend
 # Requests
 
 	{

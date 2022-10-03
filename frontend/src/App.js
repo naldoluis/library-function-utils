@@ -1,5 +1,4 @@
 import React from 'react'
-import './App.css'
 import { Container, Row, Col } from 'react-bootstrap'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 import NavigationBar from './components/NavigationBar'
@@ -11,6 +10,7 @@ import Register from './components/User/Register'
 import Login from './components/User/Login'
 import Footer from './components/Footer'
 import Home from './components/Home'
+import './App.css'
 
 const App = () => {
   window.onbeforeunload = (event) => {

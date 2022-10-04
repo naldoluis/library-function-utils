@@ -236,7 +236,7 @@ class BookList extends Component {
                     <td colSpan="7">No Books Available.</td>
                   </tr>
                 ) : (
-                  books.map((book) => (
+                  books.map(book => (
                     <tr key={book.id}>
                       <td>
                         <Image src={book.coverPhotoURL} roundedCircle width="25" height="25"/>{" "}

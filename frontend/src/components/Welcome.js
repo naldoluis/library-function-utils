@@ -2,12 +2,12 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
 
-const Welcome = (props) => {
+const Welcome = props => {
   const [quotes, setQuotes] = useState("")
 
   useEffect(() => {
     if (quotes === "") {
-      axios("https://type.fit/api/quotes").then((response) => {
+      axios("https://type.fit/api/quotes").then(response => {
         setQuotes(response.data)
       })
     }

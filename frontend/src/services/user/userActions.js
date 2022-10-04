@@ -1,22 +1,22 @@
 import * as UT from './userTypes'
 import axios from 'axios'
-import { BASE_URL } from '../../utils/requests'
+import { BASE_URL } from 'utils/requests'
 
 const REGISTER_URL = `${BASE_URL}/rest/user/register`
 
 export const fetchUsers = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(userRequest())
     axios("https://randomapi.com/api/6de6abfedb24f889e0b5f675edc50deb?fmt=raw&sole")
-      .then((response) => {
+      .then(response => {
         dispatch(userSuccess(response.data))
       })
-      .catch((error) => {
+      .catch(error => {
         dispatch(userFailure(error.message))
       })
   }}
 
-export const registerUser = (userObject) => async (dispatch) => {
+export const registerUser = userObject => async dispatch => {
   dispatch(userRequest())
   try {
     const response = await axios.post(REGISTER_URL, userObject)
@@ -34,21 +34,21 @@ const userRequest = () => {
   }
 }
 
-const userSavedSuccess = (user) => {
+const userSavedSuccess = user => {
   return {
     type: UT.USER_SAVED_SUCCESS,
     payload: user
   }
 }
 
-const userSuccess = (users) => {
+const userSuccess = users => {
   return {
     type: UT.USER_SUCCESS,
     payload: users
   }
 }
 
-const userFailure = (error) => {
+const userFailure = error => {
   return {
     type: UT.USER_FAILURE,
     payload: error

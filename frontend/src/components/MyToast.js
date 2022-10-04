@@ -1,7 +1,7 @@
 import React from 'react'
 import { Toast } from 'react-bootstrap'
 
-const MyToast = (props) => {
+const MyToast = props => {
   const toastCss = {
     position: "fixed",
     top: "10px",

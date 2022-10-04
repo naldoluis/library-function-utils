@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { deleteBook } from '../../services/index'
+import { deleteBook } from 'services/index'
 import { Card, Table, Image, ButtonGroup, Button, InputGroup, FormControl } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList, faEdit, faTrash, faStepBackward, faFastBackward, faStepForward, faFastForward, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
 import MyToast from '../MyToast'
 import axios from 'axios'
-import { BASE_URL } from '../../utils/requests'
-import './../../assets/css/Style.css'
+import { BASE_URL } from 'utils/requests'
+import 'assets/css/Style.css'
 
 class BookList extends Component {
   constructor(props) {
@@ -44,8 +44,8 @@ class BookList extends Component {
           "&sortBy=price&sortDir=" +
           this.state.sortDir
       )
-      .then((response) => response.data)
-      .then((data) => {
+      .then(response => response.data)
+      .then(data => {
         this.setState({
           books: data.content,
           totalPages: data.totalPages,
@@ -53,14 +53,14 @@ class BookList extends Component {
           currentPage: data.number + 1
         })
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error)
         localStorage.removeItem("jwtToken")
         this.props.history.push("/")
       })
   }
 
-  deleteBook = (bookId) => {
+  deleteBook = bookId => {
     this.props.deleteBook(bookId)
     setTimeout(() => {
       if (this.props.bookObject != null) {
@@ -73,7 +73,7 @@ class BookList extends Component {
     }, 1000)
   }
 
-  changePage = (event) => {
+  changePage = event => {
     let targetPage = parseInt(event.target.value)
     if (this.state.search) {
       this.searchData(targetPage)
@@ -128,7 +128,7 @@ class BookList extends Component {
     }
   }
 
-  searchChange = (event) => {
+  searchChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -139,7 +139,7 @@ class BookList extends Component {
     this.findAllBooks(this.state.currentPage)
   }
 
-  searchData = (currentPage) => {
+  searchData = currentPage => {
     currentPage -= 1
     axios(`${BASE_URL}/rest/books/search` +
           this.state.search +
@@ -148,8 +148,8 @@ class BookList extends Component {
           "&size=" +
           this.state.booksPerPage
       )
-      .then((response) => response.data)
-      .then((data) => {
+      .then(response => response.data)
+      .then(data => {
         this.setState({
           books: data.content,
           totalPages: data.totalPages,
@@ -326,15 +326,15 @@ class BookList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     bookObject: state.book
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    deleteBook: (bookId) => dispatch(deleteBook(bookId))
+    deleteBook: bookId => dispatch(deleteBook(bookId))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BookList)

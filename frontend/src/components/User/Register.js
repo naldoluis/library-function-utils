@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux'
 import { Row, Col, Card, Form, InputGroup, FormControl, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope, faLock, faUndo, faUserPlus, faUser } from '@fortawesome/free-solid-svg-icons'
-import { registerUser } from '../../services/index'
+import { registerUser } from 'services/index'
 import MyToast from '../MyToast'
 
-const Register = (props) => {
+const Register = props => {
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState("")
 
@@ -19,7 +19,7 @@ const Register = (props) => {
 
   const [user, setUser] = useState(initialState)
 
-  const userChange = (event) => {
+  const userChange = event => {
     const { name, value } = event.target
     setUser({ ...user, [name]: value })
   }
@@ -28,7 +28,7 @@ const Register = (props) => {
 
   const saveUser = () => {
     dispatch(registerUser(user))
-      .then((response) => {
+      .then(response => {
         setShow(true)
         setMessage(response.message)
         resetRegisterForm()
@@ -37,7 +37,7 @@ const Register = (props) => {
           props.history.push("/login")
         }, 2000)
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error)
       })
   }

@@ -1,10 +1,10 @@
 import * as AT from './authTypes'
 import axios from 'axios'
-import { BASE_URL } from '../../../utils/requests'
+import { BASE_URL } from 'utils/requests'
 
 const AUTH_URL = `${BASE_URL}/rest/user/authenticate`
 
-export const authenticateUser = (email, password) => async (dispatch) => {
+export const authenticateUser = (email, password) => async dispatch => {
   dispatch(loginRequest())
   try {
     const response = await axios.post(AUTH_URL, {
@@ -21,7 +21,7 @@ export const authenticateUser = (email, password) => async (dispatch) => {
 }
 
 export const logoutUser = () => {
-  return (dispatch) => {
+  return dispatch => {
     dispatch(logoutRequest())
     localStorage.removeItem("jwtToken")
     dispatch(success({ username: "", isLoggedIn: false }))
@@ -40,7 +40,7 @@ const logoutRequest = () => {
   }
 }
 
-const success = (isLoggedIn) => {
+const success = isLoggedIn => {
   return {
     type: AT.SUCCESS,
     payload: isLoggedIn

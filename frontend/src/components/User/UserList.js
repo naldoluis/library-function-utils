@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from '../../services/index'
-import './../../assets/css/Style.css'
+import { fetchUsers } from 'services/index'
 import { Card, Table, InputGroup, FormControl, Button, Alert } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faStepBackward, faFastBackward, faStepForward, faFastForward } from '@fortawesome/free-solid-svg-icons'
+import 'assets/css/Style.css'
 
 class UserList extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class UserList extends Component {
     this.props.fetchUsers()
   }
 
-  changePage = (event) => {
+  changePage = event => {
     this.setState({
       [event.target.name]: parseInt(event.target.value)
     })
@@ -172,13 +172,13 @@ class UserList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     userData: state.user
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     fetchUsers: () => dispatch(fetchUsers())
   }

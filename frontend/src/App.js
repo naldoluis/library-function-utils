@@ -13,7 +13,7 @@ import Home from './components/Home'
 import './App.css'
 
 const App = () => {
-  window.onbeforeunload = (event) => {
+  window.onbeforeunload = event => {
     const e = event || window.event
     e.preventDefault()
     if (e) {

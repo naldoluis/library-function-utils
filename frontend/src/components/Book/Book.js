@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { saveBook, fetchBook, updateBook, fetchLanguages, fetchGenres } from '../../services/index'
+import { saveBook, fetchBook, updateBook, fetchLanguages, fetchGenres } from 'services/index'
 import { Card, Form, Button, Col, InputGroup, Image } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faPlusSquare, faUndo, faList, faEdit } from '@fortawesome/free-solid-svg-icons'
@@ -43,7 +43,7 @@ class Book extends Component {
       if (bookLanguages) {
         this.setState({
           languages: [{ value: "", display: "Select Language" }].concat(
-            bookLanguages.map((language) => {
+            bookLanguages.map(language => {
               return { value: language, display: language }
             }))
         })
@@ -59,7 +59,7 @@ class Book extends Component {
       if (bookGenres) {
         this.setState({
           genres: [{ value: "", display: "Select Genre" }].concat(
-            bookGenres.map((genre) => {
+            bookGenres.map(genre => {
               return { value: genre, display: genre }
             }))
         })
@@ -67,7 +67,7 @@ class Book extends Component {
     }, 100)
   }
 
-  findBookById = (bookId) => {
+  findBookById = bookId => {
     this.props.fetchBook(bookId)
     setTimeout(() => {
       let book = this.props.bookObject.book
@@ -90,7 +90,7 @@ class Book extends Component {
     this.setState(() => this.initialState)
   }
 
-  submitBook = (event) => {
+  submitBook = event => {
     event.preventDefault()
 
     const book = {
@@ -115,7 +115,7 @@ class Book extends Component {
     this.setState(this.initialState)
   }
 
-  updateBook = (event) => {
+  updateBook = event => {
     event.preventDefault()
 
     const book = {
@@ -140,7 +140,7 @@ class Book extends Component {
     this.setState(this.initialState)
   }
 
-  bookChange = (event) => {
+  bookChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     })
@@ -261,7 +261,7 @@ class Book extends Component {
                     value={language}
                     className={"bg-dark text-white"}
                   >
-                    {this.state.languages.map((language) => (
+                    {this.state.languages.map(language => (
                       <option key={language.value} value={language.value}>
                         {language.display}
                       </option>
@@ -279,7 +279,7 @@ class Book extends Component {
                     value={genre}
                     className={"bg-dark text-white"}
                   >
-                    {this.state.genres.map((genre) => (
+                    {this.state.genres.map(genre => (
                       <option key={genre.value} value={genre.value}>
                         {genre.display}
                       </option>
@@ -310,17 +310,17 @@ class Book extends Component {
       </div>
     )}}
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     bookObject: state.book
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
-    saveBook: (book) => dispatch(saveBook(book)),
-    fetchBook: (bookId) => dispatch(fetchBook(bookId)),
-    updateBook: (book) => dispatch(updateBook(book)),
+    saveBook: book => dispatch(saveBook(book)),
+    fetchBook: bookId => dispatch(fetchBook(bookId)),
+    updateBook: book => dispatch(updateBook(book)),
     fetchLanguages: () => dispatch(fetchLanguages()),
     fetchGenres: () => dispatch(fetchGenres())
   }

@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux'
 import { Row, Col, Card, Form, InputGroup, FormControl, Button, Alert } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faEnvelope, faLock, faUndo } from '@fortawesome/free-solid-svg-icons'
-import { authenticateUser } from '../../services/index'
+import { authenticateUser } from 'services/index'
 
-const Login = (props) => {
+const Login = props => {
   const [error, setError] = useState()
   const [show, setShow] = useState(true)
 
@@ -16,7 +16,7 @@ const Login = (props) => {
 
   const [user, setUser] = useState(initialState)
 
-  const credentialChange = (event) => {
+  const credentialChange = event => {
     const { name, value } = event.target
     setUser({ ...user, [name]: value })
   }
@@ -25,11 +25,11 @@ const Login = (props) => {
 
   const validateUser = () => {
     dispatch(authenticateUser(user.email, user.password))
-      .then((response) => {
+      .then(response => {
         console.log(response.data)
         return props.history.push("/home")
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.message)
         setShow(true)
         resetLoginForm()

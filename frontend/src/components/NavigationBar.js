@@ -4,10 +4,10 @@ import { Navbar, Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPlus, faSignInAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { logoutUser } from '../services/index'
+import { logoutUser } from 'services/index'
 
 const NavigationBar = () => {
-  const auth = useSelector((state) => state.auth)
+  const auth = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
   const logout = () => {

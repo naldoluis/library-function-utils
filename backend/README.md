@@ -1,6 +1,6 @@
 # GET
 	http://localhost:8080/rest/user/authenticate
-	cd C:\libraryy\frontend
+	cd C:\libraryy\frontend  yarn install  yarn audit fix   yarn upgrade
 # Requests
 
 	{

@@ -1,8 +1,6 @@
-import * as UT from './userTypes'
 import axios from 'axios'
+import * as UT from './userTypes'
 import { BASE_URL } from 'utils/requests'
-
-const REGISTER_URL = `${BASE_URL}/rest/user/register`
 
 export const fetchUsers = () => {
   return dispatch => {
@@ -13,13 +11,13 @@ export const fetchUsers = () => {
       })
       .catch(error => {
         dispatch(userFailure(error.message))
-      })
+     })
   }}
 
 export const registerUser = userObject => async dispatch => {
   dispatch(userRequest())
   try {
-    const response = await axios.post(REGISTER_URL, userObject)
+    const response = await axios.post(`${BASE_URL}/user/register`, userObject)
     dispatch(userSavedSuccess(response.data))
     return Promise.resolve(response.data)
   } catch (error) {

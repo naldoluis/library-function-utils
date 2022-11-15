@@ -18,7 +18,7 @@ public class BookService implements IService<Book>, IPageService<Book> {
 
 	@Autowired
 	private BookRepository bookRepository;
-	
+
 	@Override
 	public Collection<Book> findAll() {
 		return (Collection<Book>) bookRepository.findAll();

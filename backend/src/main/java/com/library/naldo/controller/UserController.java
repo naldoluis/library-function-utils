@@ -25,7 +25,7 @@ import com.library.naldo.utils.ConstantUtils;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins="http://localhost:3000")
 public class UserController {
 
 	private static Logger log = LoggerFactory.getLogger(UserController.class);

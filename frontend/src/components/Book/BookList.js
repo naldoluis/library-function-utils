@@ -1,23 +1,23 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { deleteBook } from 'services/index'
-import { Card, Table, Image, ButtonGroup, Button, InputGroup, FormControl } from 'react-bootstrap'
+import { Card, Table, Image, Button, InputGroup, FormControl } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList, faEdit, faTrash, faStepBackward, faFastBackward, faStepForward, faFastForward, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { Link } from 'react-router-dom'
-import MyToast from '../MyToast'
 import axios from 'axios'
+import MyToast from '../MyToast'
+import { deleteBook } from 'services'
 import { BASE_URL } from 'utils/requests'
 import 'assets/css/Style.css'
 
-class BookList extends Component {
+class BookList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       books: [],
       search: "",
       currentPage: 1,
-      booksPerPage: 5,
+      booksPerPage: 6,
       sortDir: "asc"
     }
   }
@@ -37,7 +37,7 @@ class BookList extends Component {
 
   findAllBooks(currentPage) {
     currentPage -= 1
-    axios(`${BASE_URL}/rest/books?pageNumber=` +
+    axios(`${BASE_URL}/books?pageNumber=` +
           currentPage +
           "&pageSize=" +
           this.state.booksPerPage +
@@ -57,7 +57,7 @@ class BookList extends Component {
         console.log(error)
         localStorage.removeItem("jwtToken")
         this.props.history.push("/")
-      })
+     })
   }
 
   deleteBook = bookId => {
@@ -65,12 +65,12 @@ class BookList extends Component {
     setTimeout(() => {
       if (this.props.bookObject != null) {
         this.setState({ show: true })
-        setTimeout(() => this.setState({ show: false }), 3000)
+        setTimeout(() => this.setState({ show: false }), 2300)
         this.findAllBooks(this.state.currentPage)
       } else {
         this.setState({ show: false })
       }
-    }, 1000)
+    }, 500)
   }
 
   changePage = event => {
@@ -141,7 +141,7 @@ class BookList extends Component {
 
   searchData = currentPage => {
     currentPage -= 1
-    axios(`${BASE_URL}/rest/books/search` +
+    axios(`${BASE_URL}/books/search/` +
           this.state.search +
           "?page=" +
           currentPage +
@@ -156,7 +156,7 @@ class BookList extends Component {
           totalElements: data.totalElements,
           currentPage: data.number + 1
         })
-      })
+     })
   }
 
   render() {
@@ -167,11 +167,11 @@ class BookList extends Component {
         <div style={{ display: this.state.show ? "block" : "none" }}>
           <MyToast
             show={this.state.show}
-            message={"Book Deleted Successfully."}
-            type={"danger"}
+            message="Book Deleted Successfully."
+            type="danger"
           />
         </div>
-        <Card className={"border border-dark bg-dark text-white"}>
+        <Card className="border border-dark bg-dark text-white">
           <Card.Header>
             <div style={{ float: "left" }}>
               <FontAwesomeIcon icon={faList}/> Book List
@@ -182,45 +182,40 @@ class BookList extends Component {
                   placeholder="Search"
                   name="search"
                   value={search}
-                  className={"info-border bg-dark text-white"}
+                  className="border-light bg-dark text-white"
                   onChange={this.searchChange}
                 />
-                <InputGroup.Append>
+                <div>
                   <Button
+                    className="find"
                     size="sm"
-                    variant="outline-info"
-                    type="button"
+                    variant="outline-warning"
                     onClick={this.searchData}
                   >
                     <FontAwesomeIcon icon={faSearch}/>
                   </Button>
                   <Button
+                    className="clean-find"
                     size="sm"
                     variant="outline-danger"
-                    type="button"
                     onClick={this.cancelSearch}
                   >
                     <FontAwesomeIcon icon={faTimes}/>
                   </Button>
-                </InputGroup.Append>
+                </div>
               </InputGroup>
             </div>
           </Card.Header>
           <Card.Body>
             <Table bordered hover striped variant="dark">
               <thead>
-                <tr>
+                <tr className="table-title">
                   <th>Title</th>
                   <th>Author</th>
                   <th>ISBN Number</th>
                   <th onClick={this.sortData}>
                     Price{" "}
-                    <div
-                      className={
-                        this.state.sortDir === "asc"
-                          ? "arrow arrow-up"
-                          : "arrow arrow-down"
-                      }
+                    <div className={this.state.sortDir === "asc" ? "arrow arrow-up" : "arrow arrow-down"}
                     >
                       {" "}
                     </div>
@@ -238,28 +233,27 @@ class BookList extends Component {
                 ) : (
                   books.map(book => (
                     <tr key={book.id}>
-                      <td>
-                        <Image src={book.coverPhotoURL} roundedCircle width="25" height="25"/>{" "}
+                      <td className="table-content">
+                        <Image src={book.photo} roundedCircle width="29" height="29"/>{" • "}
                         {book.title}
                       </td>
-                      <td>{book.author}</td>
-                      <td>{book.isbnNumber}</td>
-                      <td>{book.price}</td>
-                      <td>{book.language}</td>
-                      <td>{book.genre}</td>
-                      <td>
-                        <ButtonGroup>
-                          <Link to={"edit/" + book.id} className="btn btn-sm btn-outline-primary">
+                      <td className="table-content" align="center">{book.author}</td>
+                      <td className="table-content" align="center">{book.isbn}</td>
+                      <td className="table-content" align="center">{book.price.toFixed(2)}</td>
+                      <td className="table-content" align="center">{book.language}</td>
+                      <td className="table-content" align="center">{book.genre}</td>
+                      <td align="center">
+                          <Link to={"/edit/" + book.id} className="btn btn-sm edit">
                             <FontAwesomeIcon icon={faEdit}/>
                           </Link>{" "}
                           <Button
+                            className="delete"
                             size="sm"
-                            variant="outline-danger"
+                            variant="outline-primary"
                             onClick={() => this.deleteBook(book.id)}
                           >
                             <FontAwesomeIcon icon={faTrash}/>
                           </Button>
-                        </ButtonGroup>
                       </td>
                     </tr>
                   ))
@@ -274,48 +268,53 @@ class BookList extends Component {
               </div>
               <div style={{ float: "right" }}>
                 <InputGroup size="sm">
-                  <InputGroup.Prepend>
+                  <div>
                     <Button
-                      type="button"
-                      variant="outline-info"
+                      className="first"
+                      size="sm"
+                      variant="outline-warning"
                       disabled={currentPage === 1 ? true : false}
                       onClick={this.firstPage}
                     >
                       <FontAwesomeIcon icon={faFastBackward}/> First
                     </Button>
                     <Button
-                      type="button"
-                      variant="outline-info"
+                      className="prev"
+                      size="sm"
+                      variant="outline-success"
                       disabled={currentPage === 1 ? true : false}
                       onClick={this.prevPage}
                     >
                       <FontAwesomeIcon icon={faStepBackward}/> Prev
                     </Button>
-                  </InputGroup.Prepend>
+                    </div>
                   <FormControl
-                    className={"page-num bg-dark"}
+                    size="sm"
+                    className="border-light text-white page-num bg-dark"
                     name="currentPage"
                     value={currentPage}
                     onChange={this.changePage}
                   />
-                  <InputGroup.Append>
+                  <div>
                     <Button
-                      type="button"
-                      variant="outline-info"
+                      className="next"
+                      size="sm"
+                      variant="outline-success"
                       disabled={currentPage === totalPages ? true : false}
                       onClick={this.nextPage}
                     >
                       <FontAwesomeIcon icon={faStepForward}/> Next
                     </Button>
                     <Button
-                      type="button"
-                      variant="outline-info"
+                      className="last"
+                      size="sm"
+                      variant="outline-warning"
                       disabled={currentPage === totalPages ? true : false}
                       onClick={this.lastPage}
                     >
                       <FontAwesomeIcon icon={faFastForward}/> Last
                     </Button>
-                  </InputGroup.Append>
+                    </div>
                 </InputGroup>
               </div>
             </Card.Footer>

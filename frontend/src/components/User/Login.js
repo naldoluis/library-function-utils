@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { Row, Col, Card, Form, InputGroup, FormControl, Button, Alert } from 'react-bootstrap'
+import { Col, Card, Form, InputGroup, FormControl, Button, Alert } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt, faEnvelope, faLock, faUndo } from '@fortawesome/free-solid-svg-icons'
-import { authenticateUser } from 'services/index'
+import { authenticateUser } from 'services'
 
 const Login = props => {
   const [error, setError] = useState()
   const [show, setShow] = useState(true)
 
-  const initialState = {
-    email: "",
-    password: ""
-  }
+  const initialState = { email: "", password: "" }
 
   const [user, setUser] = useState(initialState)
 
@@ -27,14 +24,14 @@ const Login = props => {
     dispatch(authenticateUser(user.email, user.password))
       .then(response => {
         console.log(response.data)
-        return props.history.push("/home")
+        //return props.history.push("/home")
       })
       .catch(error => {
         console.log(error.message)
         setShow(true)
         resetLoginForm()
-        setError("Invalid email and password")
-      })
+        setError(" • Email or password invalid 👎")
+     })
   }
 
   const resetLoginForm = () => {
@@ -42,7 +39,7 @@ const Login = props => {
   }
 
   return (
-    <Row className="justify-content-md-center">
+    <div className="justify-content-md-center form-row">
       <Col xs={5}>
         {show && props.message && (
           <Alert variant="success" onClose={() => setShow(false)} dismissible>
@@ -54,40 +51,39 @@ const Login = props => {
             {error}
           </Alert>
         )}
-        <Card className={"border border-dark bg-dark text-white"}>
+        <Card className="border border-dark bg-dark text-white">
           <Card.Header>
             <FontAwesomeIcon icon={faSignInAlt}/> Login
           </Card.Header>
           <Card.Body>
-            <Form.Row>
+          <div>
               <Form.Group as={Col}>
                 <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>
+                <div>
+                    <InputGroup.Text className="envelope">
                       <FontAwesomeIcon icon={faEnvelope}/>
                     </InputGroup.Text>
-                  </InputGroup.Prepend>
+                </div>
                   <FormControl
                     required
                     autoComplete="off"
-                    type="text"
                     name="email"
                     value={user.email}
                     onChange={credentialChange}
-                    className={"bg-dark text-white"}
+                    className="input-email"
                     placeholder="Enter Email Address"
                   />
                 </InputGroup>
               </Form.Group>
-            </Form.Row>
-            <Form.Row>
+              </div>
+              <div>
               <Form.Group as={Col}>
                 <InputGroup>
-                  <InputGroup.Prepend>
-                    <InputGroup.Text>
+                <div>
+                    <InputGroup.Text className="lock">
                       <FontAwesomeIcon icon={faLock}/>
                     </InputGroup.Text>
-                  </InputGroup.Prepend>
+                </div>
                   <FormControl
                     required
                     autoComplete="off"
@@ -95,17 +91,16 @@ const Login = props => {
                     name="password"
                     value={user.password}
                     onChange={credentialChange}
-                    className={"bg-dark text-white"}
+                    className="input-password"
                     placeholder="Enter Password"
                   />
                 </InputGroup>
               </Form.Group>
-            </Form.Row>
+              </div>
           </Card.Body>
           <Card.Footer style={{ textAlign: "right" }}>
             <Button
               size="sm"
-              type="button"
               variant="success"
               onClick={validateUser}
               disabled={user.email.length === 0 || user.password.length === 0}
@@ -114,7 +109,6 @@ const Login = props => {
             </Button>{" "}
             <Button
               size="sm"
-              type="button"
               variant="info"
               onClick={resetLoginForm}
               disabled={user.email.length === 0 && user.password.length === 0}
@@ -124,7 +118,7 @@ const Login = props => {
           </Card.Footer>
         </Card>
       </Col>
-    </Row>
+    </div>
   )
 }
 export default Login

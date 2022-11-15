@@ -1,6 +1,5 @@
-import React from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Container, Col } from 'react-bootstrap'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import NavigationBar from 'components/NavigationBar'
 import Welcome from 'components/Welcome'
 import Book from 'components/Book/Book'
@@ -12,7 +11,7 @@ import Footer from 'components/Footer'
 import Home from 'components/Home'
 import 'App.css'
 
-const App = () => {
+export default function App() {
   window.onbeforeunload = event => {
     const e = event || window.event
     e.preventDefault()
@@ -23,24 +22,26 @@ const App = () => {
   }
 
   return (
-    <Router>
+    <BrowserRouter>
       <NavigationBar/>
-      <Container>
-        <Row>
-          <Col lg={12} className={"margin-top"}>
-              <Route path="/" exact component={Welcome}/>
-              <Route path="/home" exact component={Home}/>
-              <Route path="/add" exact component={Book}/>
-              <Route path="/edit/:id" exact component={Book}/>
-              <Route path="/list" exact component={BookList}/>
-              <Route path="/users" exact component={UserList}/>
-              <Route path="/register" exact component={Register}/>
-              <Route path="/login" exact component={Login}/>
-              <Route path="/logout" exact component={() => (<Login message="User Logged Out Successfully."/>)}/>
+       <Container>
+        <div className="form-row">
+          <Col lg={12} className="margin-top">
+            <Routes>
+              <Route path="/" element={<Welcome/>}/>
+              <Route path="/home" element={<Home/>}/>
+              <Route path="/add" element={<Book/>}/>
+              <Route path="/edit/:id" element={<Book/>}/>
+              <Route path="/list" element={<BookList/>}/>
+              <Route path="/user" element={<UserList/>}/>
+              <Route path="/register" element={<Register/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path="/logout" element={() => {<Login message="User Logged Out Successfully."/>}}/>
+              <Route path="*" element={<h3 className='not-found'>Page not found</h3>}/>
+            </Routes>
           </Col>
-        </Row>
-      </Container>
+        </div>
+       </Container>
       <Footer/>
-    </Router>
+    </BrowserRouter>
   )}
-export default App

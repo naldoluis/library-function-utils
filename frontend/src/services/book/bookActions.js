@@ -1,5 +1,5 @@
-import * as BT from './bookTypes'
 import axios from 'axios'
+import * as BT from './bookTypes'
 import { BASE_URL } from 'utils/requests'
 
 export const saveBook = book => {
@@ -7,14 +7,13 @@ export const saveBook = book => {
     dispatch({
       type: BT.SAVE_BOOK_REQUEST
     })
-
-    axios.post(`${BASE_URL}/rest/books`, book)
+    axios.post(`${BASE_URL}/books`, book)
       .then(response => {
         dispatch(bookSuccess(response.data))
       })
       .catch(error => {
         dispatch(bookFailure(error))
-      })
+     })
   }}
 
 export const fetchBook = bookId => {
@@ -22,13 +21,13 @@ export const fetchBook = bookId => {
     dispatch({
       type: BT.FETCH_BOOK_REQUEST
     })
-    axios(`${BASE_URL}/rest/books` + bookId)
+    axios(`${BASE_URL}/books/` + bookId)
       .then(response => {
         dispatch(bookSuccess(response.data))
       })
       .catch(error => {
         dispatch(bookFailure(error))
-      })
+     })
   }}
 
 export const updateBook = book => {
@@ -36,13 +35,13 @@ export const updateBook = book => {
     dispatch({
       type: BT.UPDATE_BOOK_REQUEST
     })
-    axios.put(`${BASE_URL}/rest/books`, book)
+    axios.put(`${BASE_URL}/books`, book)
       .then(response => {
         dispatch(bookSuccess(response.data))
       })
       .catch(error => {
         dispatch(bookFailure(error))
-      })
+     })
   }}
 
 export const deleteBook = bookId => {
@@ -50,13 +49,13 @@ export const deleteBook = bookId => {
     dispatch({
       type: BT.DELETE_BOOK_REQUEST
     })
-    axios.delete(`${BASE_URL}/rest/books` + bookId)
+    axios.delete(`${BASE_URL}/books/` + bookId)
       .then(response => {
         dispatch(bookSuccess(response.data))
       })
       .catch(error => {
         dispatch(bookFailure(error))
-      })
+     })
   }}
 
 const bookSuccess = book => {
@@ -78,7 +77,7 @@ export const fetchLanguages = () => {
     dispatch({
       type: BT.FETCH_LANGUAGES_REQUEST
     })
-    axios(`${BASE_URL}/rest/books/languages`)
+    axios(`${BASE_URL}/books/languages`)
       .then(response => {
         dispatch({
           type: BT.LANGUAGES_SUCCESS,
@@ -90,7 +89,7 @@ export const fetchLanguages = () => {
           type: BT.LANGUAGES_FAILURE,
           payload: error
         })
-      })
+     })
   }}
 
 export const fetchGenres = () => {
@@ -98,7 +97,7 @@ export const fetchGenres = () => {
     dispatch({
       type: BT.FETCH_GENRES_REQUEST
     })
-    axios(`${BASE_URL}/rest/books/genres`)
+    axios(`${BASE_URL}/books/genres`)
       .then(response => {
         dispatch({
           type: BT.GENRES_SUCCESS,
@@ -110,5 +109,5 @@ export const fetchGenres = () => {
           type: BT.GENRES_FAILURE,
           payload: error
         })
-      })
+     })
   }}

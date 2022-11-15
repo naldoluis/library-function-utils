@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { fetchUsers } from 'services/index'
 import { Card, Table, InputGroup, FormControl, Button, Alert } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faStepBackward, faFastBackward, faStepForward, faFastForward } from '@fortawesome/free-solid-svg-icons'
+import { fetchUsers } from 'services'
 import 'assets/css/Style.css'
 
-class UserList extends Component {
+class UserList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -76,7 +76,7 @@ class UserList extends Component {
         {userData.error ? (
           <Alert variant="danger">{userData.error}</Alert>
         ) : (
-          <Card className={"border border-dark bg-dark text-white"}>
+          <Card className="border border-dark bg-dark text-white">
             <Card.Header>
               <FontAwesomeIcon icon={faUsers}/> User List
             </Card.Header>
@@ -119,48 +119,53 @@ class UserList extends Component {
                 </div>
                 <div style={{ float: "right" }}>
                   <InputGroup size="sm">
-                    <InputGroup.Prepend>
+                  <div>
                       <Button
-                        type="button"
-                        variant="outline-info"
+                        className="first"
+                        size="sm"
+                        variant="outline-warning"
                         disabled={currentPage === 1 ? true : false}
                         onClick={this.firstPage}
                       >
                         <FontAwesomeIcon icon={faFastBackward}/> First
                       </Button>
                       <Button
-                        type="button"
-                        variant="outline-info"
+                        className="prev"
+                        size="sm"
+                        variant="outline-success"
                         disabled={currentPage === 1 ? true : false}
                         onClick={this.prevPage}
                       >
                         <FontAwesomeIcon icon={faStepBackward}/> Prev
                       </Button>
-                    </InputGroup.Prepend>
+                  </div>
                     <FormControl
-                      className={"page-num bg-dark"}
+                      size="sm"
+                      className="border-light text-white page-num bg-dark"
                       name="currentPage"
                       value={currentPage}
                       onChange={this.changePage}
                     />
-                    <InputGroup.Append>
+                    <div>
                       <Button
-                        type="button"
-                        variant="outline-info"
+                        className="next"
+                        size="sm"
+                        variant="outline-success"
                         disabled={currentPage === totalPages ? true : false}
                         onClick={this.nextPage}
                       >
                         <FontAwesomeIcon icon={faStepForward}/> Next
                       </Button>
                       <Button
-                        type="button"
-                        variant="outline-info"
+                        className="last"
+                        size="sm"
+                        variant="outline-warning"
                         disabled={currentPage === totalPages ? true : false}
                         onClick={this.lastPage}
                       >
                         <FontAwesomeIcon icon={faFastForward}/> Last
                       </Button>
-                    </InputGroup.Append>
+                    </div>
                   </InputGroup>
                 </div>
               </Card.Footer>
